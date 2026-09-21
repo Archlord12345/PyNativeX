@@ -40,6 +40,14 @@ kotlin {
     }
 }
 
+val repoRoot = rootProject.projectDir.resolve("../../..")
+
+val materializeBinaries by tasks.registering(Exec::class) {
+    description = "Restores photos and the Gradle wrapper JAR when they are stored as text parts."
+    workingDir = repoRoot
+    commandLine("python3", "scripts/materialize_binaries.py")
+}
+
 val generatePyNativeXUi by tasks.registering(Exec::class) {
     description = "Compiles the Python UI tree into the PyNativeX protocol asset."
     workingDir = rootProject.projectDir
@@ -49,6 +57,7 @@ val generatePyNativeXUi by tasks.registering(Exec::class) {
         "--output",
         "app/src/main/assets/gallery_ui.json",
     )
+    dependsOn(materializeBinaries)
 }
 
 tasks.named("preBuild") {

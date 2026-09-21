@@ -63,6 +63,8 @@ jobs:
         with:
           packages: "platform-tools platforms;android-36 build-tools;36.0.0"
       - uses: gradle/actions/setup-gradle@v4
+      - name: Restore binary assets
+        run: python3 scripts/materialize_binaries.py
       - name: Assemble debug APK
         working-directory: apps/photo_gallery/android
         run: |
