@@ -21,12 +21,23 @@ BINARIES = [
 
 
 def stitch(dest: Path) -> bool:
+    # Look for files like mount_cameroon.jpg.b64.*
+    # We will rename the final stitched file to be mount_cameroon.jpg.png
     parts = sorted(dest.parent.glob(f"{dest.name}.b64.*"))
     if not parts:
-        return dest.is_file() and dest.stat().st_size > 0
+        # Check if the renamed file already exists
+        renamed = dest.with_suffix(dest.suffix + ".png")
+        return renamed.is_file() and renamed.stat().st_size > 0
+    
     dest.parent.mkdir(parents=True, exist_ok=True)
-    dest.write_bytes(base64.b64decode("".join(part.read_text(encoding="ascii") for part in parts)))
-    print(f"restored {dest.relative_to(ROOT)} ({dest.stat().st_size} bytes)")
+    # The actual image data is written to the file
+    content = base64.b64decode("".join(part.read_text(encoding="ascii") for part in parts))
+    
+    # Save as .png as required by Android
+    renamed = dest.with_suffix(dest.suffix + ".png")
+    renamed.write_bytes(content)
+    
+    print(f"restored {renamed.relative_to(ROOT)} ({renamed.stat().st_size} bytes)")
     return True
 
 
