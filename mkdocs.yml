@@ -1,0 +1,32 @@
+site_name: PyNativeX
+site_description: Build native mobile apps with Python
+repo_name: PyNativeX
+
+theme:
+  name: material
+  language: fr
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: light blue
+      accent: indigo
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: light blue
+      accent: amber
+
+nav:
+  - Accueil: index.md
+  - Communauté: community.md
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [sdk/python]
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - tables
