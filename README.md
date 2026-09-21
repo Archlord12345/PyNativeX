@@ -11,6 +11,14 @@ PyNativeX est un framework open source visant des applications mobiles natives �
 Python pilote l’interface déclarative, un cœur C++ assure le rendu, et Kotlin/Swift donnent accès aux
 plateformes. Android arm64 est prioritaire ; iOS reste expérimental.
 
+## Installation
+
+Vous pouvez installer le framework PyNativeX directement depuis PyPI :
+
+```bash
+pip install pynativex
+```
+
 > **État : pré-alpha (`0.1.0a1`).** Le SDK Python, le protocole d’opérations, la CLI, l’ABI C++
 > et un hôte Android de galerie sont testables. Le rendu Skia et CPython embarqué ne sont pas
 > encore livrés. `pynativex build android` refuse donc de prétendre produire un APK générique ;
