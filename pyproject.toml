@@ -21,6 +21,11 @@ classifiers = [
 ]
 dependencies = []
 
+[project.urls]
+Homepage = "https://github.com/pynativex/pynativex"
+Repository = "https://github.com/pynativex/pynativex.git"
+Documentation = "https://pynativex.github.io"
+
 [project.optional-dependencies]
 dev = ["pytest>=8.3", "pytest-cov>=6.0", "ruff>=0.11", "mypy>=1.15"]
 docs = ["mkdocs-material>=9.6", "mkdocstrings[python]>=0.29"]
