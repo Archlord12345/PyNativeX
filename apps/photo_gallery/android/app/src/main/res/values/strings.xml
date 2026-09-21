@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Échos du Cameroun</string>
+    <string name="previous">← Précédente</string>
+    <string name="next">Suivante →</string>
+    <string name="pause">Pause</string>
+    <string name="play">Lecture</string>
+    <string name="photo_counter">%1$d / %2$d</string>
+    <string name="photo_content_description">%1$s — %2$s</string>
+</resources>

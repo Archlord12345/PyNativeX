@@ -1,0 +1,173 @@
+{
+  "framework": "PyNativeX",
+  "protocol_version": 1,
+  "application": {
+    "title": "Échos du Cameroun",
+    "entry": "gallery_app:app"
+  },
+  "operations": [
+    {
+      "code": "create",
+      "node_id": 1,
+      "payload": {
+        "type": "Scaffold",
+        "key": null,
+        "props": {}
+      }
+    },
+    {
+      "code": "create",
+      "node_id": 2,
+      "payload": {
+        "type": "AppBar",
+        "key": null,
+        "props": {}
+      }
+    },
+    {
+      "code": "insert",
+      "node_id": 2,
+      "payload": {
+        "parent": 1,
+        "index": 0
+      }
+    },
+    {
+      "code": "create",
+      "node_id": 3,
+      "payload": {
+        "type": "Text",
+        "key": null,
+        "props": {
+          "value": "Échos du Cameroun",
+          "style": {
+            "size": 24,
+            "weight": 700,
+            "color": 4294967295
+          },
+          "max_lines": null
+        }
+      }
+    },
+    {
+      "code": "insert",
+      "node_id": 3,
+      "payload": {
+        "parent": 2,
+        "index": 0
+      }
+    },
+    {
+      "code": "create",
+      "node_id": 4,
+      "payload": {
+        "type": "Column",
+        "key": null,
+        "props": {
+          "spacing": 10
+        }
+      }
+    },
+    {
+      "code": "insert",
+      "node_id": 4,
+      "payload": {
+        "parent": 1,
+        "index": 1
+      }
+    },
+    {
+      "code": "create",
+      "node_id": 5,
+      "payload": {
+        "type": "Text",
+        "key": null,
+        "props": {
+          "value": "Carnet visuel",
+          "style": {
+            "size": 13,
+            "weight": 700,
+            "color": 4281908728
+          },
+          "max_lines": null
+        }
+      }
+    },
+    {
+      "code": "insert",
+      "node_id": 5,
+      "payload": {
+        "parent": 4,
+        "index": 0
+      }
+    },
+    {
+      "code": "create",
+      "node_id": 6,
+      "payload": {
+        "type": "Text",
+        "key": null,
+        "props": {
+          "value": "Explorez trois paysages, glissez pour voyager.",
+          "style": {
+            "size": 18,
+            "weight": 400,
+            "color": 4293060848
+          },
+          "max_lines": null
+        }
+      }
+    },
+    {
+      "code": "insert",
+      "node_id": 6,
+      "payload": {
+        "parent": 4,
+        "index": 1
+      }
+    },
+    {
+      "code": "create",
+      "node_id": 7,
+      "payload": {
+        "type": "PhotoGallery",
+        "key": null,
+        "props": {
+          "assets": [
+            "mount_cameroon",
+            "limbe_beach",
+            "rainforest"
+          ],
+          "titles": [
+            "Mont Cameroun",
+            "Rivage de Limbé",
+            "Forêt tropicale"
+          ],
+          "captions": [
+            "Là où la montagne rencontre les nuages.",
+            "La lumière dorée sur le sable volcanique.",
+            "Au cœur d’une nature vivante et préservée."
+          ],
+          "auto_play_seconds": 4,
+          "height": 430
+        }
+      }
+    },
+    {
+      "code": "insert",
+      "node_id": 7,
+      "payload": {
+        "parent": 4,
+        "index": 2
+      }
+    },
+    {
+      "code": "commit",
+      "node_id": null,
+      "payload": {
+        "sequence": 1,
+        "version": 1
+      }
+    }
+  ]
+}
