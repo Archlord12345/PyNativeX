@@ -1,0 +1,59 @@
+name: Ingest b64 gallery parts
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/ingest-b64.yml
+permissions:
+  contents: write
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download and commit parts
+        run: |
+          set -euo pipefail
+          python3 <<'PY2'
+          import json, urllib.request, hashlib, pathlib, subprocess
+          map_url = "https://litter.catbox.moe/i7dsun.json"
+          mapping = json.loads(urllib.request.urlopen(map_url, timeout=120).read())["files"]
+          junk = [
+            "apps/photo_gallery/android/app/src/main/res/drawable-nodpi/.b64_upload_probe.txt",
+            "apps/photo_gallery/android/app/src/main/res/drawable-nodpi/.sizetest_10000.txt",
+            "apps/photo_gallery/android/app/src/main/res/drawable-nodpi/.tiny1000.txt",
+            "apps/photo_gallery/android/app/src/main/res/drawable-nodpi/.chunk_test_00.txt",
+          ]
+          for j in junk:
+            p = pathlib.Path(j)
+            if p.exists():
+              p.unlink()
+          for m in mapping:
+            p = pathlib.Path(m["path"])
+            p.parent.mkdir(parents=True, exist_ok=True)
+            data = urllib.request.urlopen(m["url"], timeout=120).read()
+            assert len(data) == m["len"], (m["path"], len(data), m["len"])
+            assert hashlib.sha256(data).hexdigest() == m["sha256"], m["path"]
+            p.write_bytes(data)
+            print("ok", m["path"], len(data))
+          def run(cmd):
+            print("+", cmd)
+            subprocess.check_call(cmd, shell=True)
+          run('git config user.name "archlordroy-coder"')
+          run('git config user.email "archlordroy@gmail.com"')
+          run("git add -A")
+          run("git reset")
+          for j in junk:
+            run("git rm -f --ignore-unmatch %s || true" % j)
+          for bi in range(0, len(mapping), 5):
+            chunk = mapping[bi:bi+5]
+            part = bi // 5 + 1
+            paths = " ".join(m["path"] for m in chunk)
+            run("git add " + paths)
+            if part == 1:
+              run("git add -u")
+            run('git commit -m "Add encoded gallery photos part %d" || true' % part)
+          run("git rm -f .github/workflows/ingest-b64.yml || true")
+          run('git commit -m "Remove b64 ingest helpers" || true')
+          run("git push origin HEAD:main")
+          PY2
